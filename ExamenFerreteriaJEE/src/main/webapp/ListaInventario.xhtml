@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+LISTA DE INVENTARIO DE FERRETERIA
+</h:head>
+<body>
+<br/>
+<br/>
+	<h:dataTable value="#{inventarioBean.listaInventario}" var="inv"
+		class="table">
+		<h:column>
+			<f:facet name="header">CODIGO</f:facet>
+			#{inv.productos.codigo}
+			</h:column>
+
+		<h:column>
+			<f:facet name="header">PRODUCTO</f:facet>
+			#{inv.productos.nombre}
+			</h:column>
+		<h:column>
+			<f:facet name="header">PROVEEDOR</f:facet>
+			   #{inv.productos.proveedor.nombre}
+			</h:column>
+		<h:column>
+			<f:facet name="header">STOCK</f:facet>
+			#{inv.productos.stock}
+			</h:column>
+		<h:column>
+			<f:facet name="header">ACCIONES</f:facet>
+                    <h:commandButton
+							action="#{inventarioBean.registrarPedido(inv.productos.codigo)}"
+							class="btn btn-info " value="Solicitar Pedido">
+						</h:commandButton>
+		</h:column>
+	</h:dataTable>
+	<br/>
+	<br/>
+	<br/>
+	SOLICITAR PEDIDO
+	<br/>
+	<br/>
+	<h:form class="homepage_invitee_form" id="frm">
+			<div class="form-group">
+				<label for="txtNombres" class="col-md-12">•CODIGO DEL PRODUCTO A SOLICITAR</label>
+				<br/>
+	<br/>
+				<div class="col-md-12">
+					<h:inputText id="txtNombres" a:placeholder="xxxx"
+						value="#{inventarioBean.newInventario.productos.codigo}"
+						class="form-control form-control-line" />
+				</div>
+			</div>
+			<div class="form-group">
+			<br/>
+	<br/>
+				<label for="txtApellidos" class="col-md-12">•CANTIDAD A SOLICITAR</label>
+				<br/>
+	<br/>
+				<div class="col-md-12">
+					<h:inputText id="txtApellidos" a:placeholder="n cantidad"
+						value="#{inventarioBean.newPedido.cantidad}"
+						class="form-control form-control-line" />
+				</div>
+			</div>
+			<h:messages globalOnly="true" />
+			<div class="form-group">
+				<div class="col-sm-12">
+					<br />
+					<h:commandButton action="#{inventarioBean.solicitarPedido()}"
+						class="btn btn-success" value="SOLICITAR" />
+				</div>
+			</div>
+		</h:form>
+</body>
+</html>
